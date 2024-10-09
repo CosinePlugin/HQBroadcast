@@ -20,8 +20,12 @@ class BroadcastCommand(
         val message = args.copyOf().joinToString(" ").colorize()
         val broadcastFormat = settingConfig.getBroadcastFormat {
             it.replace("%message%", message).replace("%player%", sender.name)
-        }.joinToString("\n").run(::TextComponent)
-        packetSender.broadcast(broadcastFormat, true)
+        }.joinToString("\n").colorize()
+        if (settingConfig.isProxy) {
+            packetSender.broadcast(TextComponent(broadcastFormat), true)
+        } else {
+            sender.server.broadcastMessage(broadcastFormat)
+        }
         return true
     }
 

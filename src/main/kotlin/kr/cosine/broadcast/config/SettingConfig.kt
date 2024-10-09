@@ -1,6 +1,5 @@
 package kr.cosine.broadcast.config
 
-import kr.hqservice.framework.bukkit.core.extension.colorize
 import kr.hqservice.framework.global.core.component.Bean
 import kr.hqservice.framework.yaml.config.HQYamlConfiguration
 
@@ -10,8 +9,10 @@ class SettingConfig(
 ) {
     private var broadcastFormat = emptyList<String>()
 
+    val isProxy get() = config.getBoolean("proxy")
+
     fun load() {
-        broadcastFormat = config.getStringList("broadcast-format").map(String::colorize)
+        broadcastFormat = config.getStringList("broadcast-format")
     }
 
     fun reload() {
