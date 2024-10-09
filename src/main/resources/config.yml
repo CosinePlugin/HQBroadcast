@@ -1,0 +1,6 @@
+# %player% = 공지한 유저
+# %message% = 메시지
+broadcast-format:
+  - ""
+  - "&6[공지] &f%message%"
+  - ""
