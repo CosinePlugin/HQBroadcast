@@ -2,13 +2,16 @@ package kr.cosine.broadcast.command
 
 import kr.cosine.broadcast.config.SettingConfig
 import kr.hqservice.framework.bukkit.core.extension.colorize
+import kr.hqservice.framework.bukkit.core.netty.server.ProxiedNettyServer
 import kr.hqservice.framework.global.core.component.Bean
+import kr.hqservice.framework.netty.api.NettyServer
 import kr.hqservice.framework.netty.api.PacketSender
 import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.command.*
 
 @Bean
 class BroadcastCommand(
+    private val nettyServer: NettyServer,
     private val packetSender: PacketSender,
     private val settingConfig: SettingConfig
 ) : CommandExecutor, TabCompleter {
@@ -21,7 +24,7 @@ class BroadcastCommand(
         val broadcastFormat = settingConfig.getBroadcastFormat {
             it.replace("%message%", message).replace("%player%", sender.name)
         }.joinToString("\n").colorize()
-        if (settingConfig.isProxy) {
+        if (nettyServer is ProxiedNettyServer) {
             packetSender.broadcast(TextComponent(broadcastFormat), true)
         } else {
             sender.server.broadcastMessage(broadcastFormat)

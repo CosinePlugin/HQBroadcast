@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "kr.cosine.broadcast"
-version = "1.0.1"
+version = "1.1.0"
 
 repositories {
     maven("https://maven.hqservice.kr/repository/maven-public")

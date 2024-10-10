@@ -9,8 +9,6 @@ class SettingConfig(
 ) {
     private var broadcastFormat = emptyList<String>()
 
-    val isProxy get() = config.getBoolean("proxy")
-
     fun load() {
         broadcastFormat = config.getStringList("broadcast-format")
     }
